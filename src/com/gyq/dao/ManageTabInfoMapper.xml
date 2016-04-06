@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gyq.dao.ManageTabInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gyq.model.ManageTabInfo" >
+    <id column="tabId" property="tabid" jdbcType="INTEGER" />
+    <result column="tabName" property="tabname" jdbcType="VARCHAR" />
+    <result column="tabBrief" property="tabbrief" jdbcType="VARCHAR" />
+    <result column="tabLevel" property="tablevel" jdbcType="INTEGER" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tabId, tabName, tabBrief, tabLevel, parentId, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gyq.model.ManageTabInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from manage_tab_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manage_tab_info
+    where tabId = #{tabid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from manage_tab_info
+    where tabId = #{tabid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gyq.model.ManageTabInfoExample" >
+    delete from manage_tab_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gyq.model.ManageTabInfo" >
+    insert into manage_tab_info (tabId, tabName, tabBrief, 
+      tabLevel, parentId, remark
+      )
+    values (#{tabid,jdbcType=INTEGER}, #{tabname,jdbcType=VARCHAR}, #{tabbrief,jdbcType=VARCHAR}, 
+      #{tablevel,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gyq.model.ManageTabInfo" >
+    insert into manage_tab_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tabid != null" >
+        tabId,
+      </if>
+      <if test="tabname != null" >
+        tabName,
+      </if>
+      <if test="tabbrief != null" >
+        tabBrief,
+      </if>
+      <if test="tablevel != null" >
+        tabLevel,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tabid != null" >
+        #{tabid,jdbcType=INTEGER},
+      </if>
+      <if test="tabname != null" >
+        #{tabname,jdbcType=VARCHAR},
+      </if>
+      <if test="tabbrief != null" >
+        #{tabbrief,jdbcType=VARCHAR},
+      </if>
+      <if test="tablevel != null" >
+        #{tablevel,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gyq.model.ManageTabInfoExample" resultType="java.lang.Integer" >
+    select count(*) from manage_tab_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update manage_tab_info
+    <set >
+      <if test="record.tabid != null" >
+        tabId = #{record.tabid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tabname != null" >
+        tabName = #{record.tabname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tabbrief != null" >
+        tabBrief = #{record.tabbrief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tablevel != null" >
+        tabLevel = #{record.tablevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentid != null" >
+        parentId = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update manage_tab_info
+    set tabId = #{record.tabid,jdbcType=INTEGER},
+      tabName = #{record.tabname,jdbcType=VARCHAR},
+      tabBrief = #{record.tabbrief,jdbcType=VARCHAR},
+      tabLevel = #{record.tablevel,jdbcType=INTEGER},
+      parentId = #{record.parentid,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gyq.model.ManageTabInfo" >
+    update manage_tab_info
+    <set >
+      <if test="tabname != null" >
+        tabName = #{tabname,jdbcType=VARCHAR},
+      </if>
+      <if test="tabbrief != null" >
+        tabBrief = #{tabbrief,jdbcType=VARCHAR},
+      </if>
+      <if test="tablevel != null" >
+        tabLevel = #{tablevel,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tabId = #{tabid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gyq.model.ManageTabInfo" >
+    update manage_tab_info
+    set tabName = #{tabname,jdbcType=VARCHAR},
+      tabBrief = #{tabbrief,jdbcType=VARCHAR},
+      tabLevel = #{tablevel,jdbcType=INTEGER},
+      parentId = #{parentid,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where tabId = #{tabid,jdbcType=INTEGER}
+  </update>
+</mapper>
